@@ -1,5 +1,7 @@
+from ui import UI
 class TicTacToeBoard():
-    def __init__(self, defalt_value:str=' ') -> None:
+    def __init__(self, user_interface:type[UI], defalt_value:str=' ') -> None:
+        self.ui = user_interface
         self.defalt_value = defalt_value
         self.board = list(self.create_board(self.defalt_value))
 
@@ -15,10 +17,14 @@ class TicTacToeBoard():
         return True
 
     def is_marked(self, line:int, column:int):
-        return self.board[line][column] == self.defalt_value
+        return self.board[line][column] != self.defalt_value
 
-    def place_mark(self, line:int, column:int, mark:str):
-        self.board[line][column] = mark
+    def place_mark(self, line:int, column:int, mark:str, rewrite:bool=False):
+        if rewrite or not rewrite and not self.is_marked(line, column):
+            self.board[line][column] = mark
+            return True
+        else:
+            return False
 
 
     def print_formated_board(self):
@@ -65,12 +71,12 @@ class TicTacToeBoard():
         diagonal = self._check_diagonals()
 
         if line != self.defalt_value:
-            return True, line, 'Line'
+            return True, line, self.ui.positions('line')
         
         if column != self.defalt_value:
-            return True, column, 'Column'
+            return True, column, self.ui.positions('column')
 
         if diagonal != self.defalt_value:
-            return True, diagonal, 'Diagonal'
+            return True, diagonal, self.ui.positions('diagonal')
 
         return False, None, None

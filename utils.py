@@ -1,5 +1,6 @@
 from time import sleep
 from os import system
+from ui import UI
 
 def pick_option(options:dict, command:str, return_type=int) -> int:
     option = None

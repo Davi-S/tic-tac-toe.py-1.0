@@ -14,8 +14,8 @@ class UI:
         return returns[self.language]
 
     def main_menu_options(self):
-        returns = {'English': {'1': 'PLAY', '2':'SELECT LANGUAGE', '3':'EXIT'},
-                    'Portugues': {'1': 'JOGAR', '2':'SELECIONAR IDIOMA', '3':'SAIR'}}
+        returns = {'English': {'1': 'PLAY', '2':'SELECT LANGUAGE', '3': 'HOW TO PLAY', '4':'EXIT'},
+                    'Portugues': {'1': 'JOGAR', '2':'SELECIONAR IDIOMA','3': 'COMO JOGAR', '4':'SAIR'}}
 
         return returns[self.language]
     
@@ -90,3 +90,10 @@ class UI:
                     'Portugues': {'diagonal': 'diagonal', 'line': 'linha', 'column': 'coluna'}}
 
         return returns[self.language][position]
+
+
+    def how_to_play(self):
+        returns = {'English': 'You will play as the "x", and your opponent as the "o".\n\nIn your turn, enter the position you want to play:\nThe number 1 indicates the upper left corner: the 2, the upper middle and so on.\n\n the first player completing 3 signs on either horizontal, vertical or diagonal first wins.\n\nGOOD LUCK!',
+                    'Portugues': 'Você irá jogar como o "x", e o seu oponente como o "o".\n\nNa sua vez, digite a posição que deseja jogar:\nO número 1 indica o canto superior esquerdo: o 2, o meio superior e assim por diante.\n\n o primeiro jogador a conpletar 3 de sinais em qualquer horizontal, vertical ou diagonal primeiro vence.\n\nBOA SORTE!'}
+
+        return returns[self.language]

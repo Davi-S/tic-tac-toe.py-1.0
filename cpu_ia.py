@@ -8,13 +8,25 @@ class CPU:
         self.board = None
         self.board_defalt_value = None
 
-    def _check_near_win(self, listi, action:str):
+    def _check_near_win(self, listi:list, action:str) -> bool:
+        """checks if a player is almost winning (2 equal signs and a defalt sign(indicates a empty place))
+
+        Args:
+            listi (list): the list with the signs on a line, column or diagonal
+            action (str): if "block", checks if the player 'x' if winnin; if "win", checks
+            fo the 'o' player
+
+        Returns:
+            bool: if there is a near win
+        """
         if action == 'block':
             return listi.count('x') == 2 and listi.count(self.board_defalt_value) == 1
         
         elif action == 'win':
             return listi.count('o') == 2 and listi.count(self.board_defalt_value) == 1
-
+    
+    # NOTE the following 3 functions (_check_lines, _check_columns, _check_diagonals)
+    # are very simillar to the same function on the "TicTacToeBoard" class in the "board.py" file
     def _check_lines(self, action:str) -> Union[tuple[int, int], bool]:
         return next(((line_idx, line.index(' ')) for line_idx, line in enumerate(self.board) if self._check_near_win(line, action)), False) 
 
@@ -44,9 +56,19 @@ class CPU:
 
     
     def _easy(self) -> tuple:
+        """A randon play
+        
+        Returns:
+            tuple: x and y axis to mark on the board
+        """
         return randint(0, 2), randint(0, 2)
 
     def _medium(self) -> tuple:
+        """Always block the opponent win if possible. else: randon play
+        
+        Returns:
+            tuple: x and y axis to mark on the board
+        """
         if lines := self._check_lines('block'):
             return lines
 
@@ -60,6 +82,11 @@ class CPU:
             
 
     def _hard(self) -> tuple:
+        """Always win if opponent. else, block the opponent win. else: random play
+        
+        Returns:
+            tuple: x and y axis to mark on the board
+        """
         if lines := self._check_lines('win'):
             return lines
 
@@ -74,6 +101,15 @@ class CPU:
 
 
     def play(self, board:list[list, list, list], board_defalt_value:str) -> tuple:
+        """call the cpu play on the given board acording to the difficulty
+
+        Args:
+            board (list): the board for the cpu bases his moves
+            board_defalt_value (str): the sign that represents a empty place on the board
+
+        Returns:
+            tuple: x and y axis to mark on the board
+        """
         self.board = board
         self.board_defalt_value = board_defalt_value
         if self.difficulty == 1:

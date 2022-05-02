@@ -1,8 +1,17 @@
 from time import sleep
-from os import system
-from ui import UI
+from typing import Union
 
-def pick_option(options:dict, command:str, return_type=int) -> int:
+def pick_option(options:dict, command:str, return_type=int) -> Union(int, str):
+    """return a int representation of a given dict key. can alse return the dict value
+
+    Args:
+        options (dict): the dict with the option to choose
+        command (str): imput prompt
+        return_type (int or str, optional): int for the key, str for the value. Defaults to int)
+
+    Returns:
+        int or str: the key or value of the dict
+    """
     option = None
     while option not in options.keys():
         print(command)
@@ -21,7 +30,15 @@ def pick_option(options:dict, command:str, return_type=int) -> int:
     elif return_type is str:
         return str(options[option]).title()
 
+
 def pick_int(command:str) -> int:
+    """Acepts a input in between 1 and 9
+    Args:
+        command (str): prompt input
+
+    Returns:
+        int: the int representaton of the number
+    """
     option = None
     while option not in range(1, 10):
         try:
@@ -33,8 +50,15 @@ def pick_int(command:str) -> int:
     return option
 
 
+def number_to_grid(number:int) -> tuple:
+    """return a single number as a x a y axis on the board
 
-def number_to_grid(number) -> tuple:
+    Args:
+        number (int): the number that represents a place on the board
+
+    Returns:
+        tuple: x and y axis
+    """
     if number == 7:
         return 0, 0
 

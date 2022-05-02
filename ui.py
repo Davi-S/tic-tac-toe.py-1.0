@@ -1,6 +1,6 @@
-"""Every string on the game must be taken from here
-"""
 class UI:
+    """Every string on the game must be taken from here
+    """
     def __init__(self) -> None:
         self.language = 'English'
 

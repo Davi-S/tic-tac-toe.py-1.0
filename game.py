@@ -11,8 +11,6 @@ class TicTacToeGame():
         self.ui = user_interface
         self.board = board
         self.opponent = None
-        self.turn = 'x' # TODO change the marks, so the player can pick whatever he wants
-                        # change also in the cpu_ia.py file
         
     def main_menu(self):
         while True:
@@ -105,6 +103,8 @@ class TicTacToeGame():
             print(f'{key}: {value}')
 
     def play(self):
+        self.turn = 'x' # TODO change the marks, so the player can pick whatever he wants
+                        # change also in the cpu_ia.py file
         while True:
             system("cls")
             self.board.print_formated_board()

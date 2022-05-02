@@ -3,11 +3,11 @@ class TicTacToeBoard():
     def __init__(self, user_interface:type[UI], defalt_value:str=' ') -> None:
         self.ui = user_interface
         self.defalt_value = defalt_value
-        self.board = list(self.create_board(self.defalt_value))
+        self.board = None
 
-    def create_board(self, defalt_value:str, size:int=3):
-        gridline = [defalt_value for _ in range(size)]
-        return [list(gridline) for _ in range(size)]
+    def create_board(self, size:int=3):
+        gridline = [self.defalt_value for _ in range(size)]
+        self.board = [list(gridline) for _ in range(size)]
 
     def is_filled(self):
         for line in self.board:

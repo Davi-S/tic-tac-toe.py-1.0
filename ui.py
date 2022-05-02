@@ -93,7 +93,19 @@ class UI:
 
 
     def how_to_play(self):
-        returns = {'English': 'You will play as the "x", and your opponent as the "o".\n\nIn your turn, enter the position you want to play:\nThe number 1 indicates the upper left corner: the 2, the upper middle and so on.\n\n the first player completing 3 signs on either horizontal, vertical or diagonal first wins.\n\nGOOD LUCK!',
-                    'Portugues': 'Você irá jogar como o "x", e o seu oponente como o "o".\n\nNa sua vez, digite a posição que deseja jogar:\nO número 1 indica o canto superior esquerdo: o 2, o meio superior e assim por diante.\n\n o primeiro jogador a conpletar 3 de sinais em qualquer horizontal, vertical ou diagonal primeiro vence.\n\nBOA SORTE!'}
+        returns = {'English': 'You will play as the "x", and your opponent as the "o".\n\nIn your turn, enter the position you want to play:\nThe number 1 indicates the upper left corner; the 2, the upper middle and so on.\n\nThe first player completing 3 signs on either horizontal, vertical or diagonal first wins.\n\nGOOD LUCK!',
+                    'Portugues': 'Você irá jogar como o "x", e o seu oponente como o "o".\n\nNa sua vez, digite a posição que deseja jogar:\nO número 1 indica o canto superior esquerdo; o 2, o meio superior e assim por diante.\n\nO primeiro jogador a conpletar 3 de sinais em qualquer horizontal, vertical ou diagonal primeiro vence.\n\nBOA SORTE!'}
+
+        return returns[self.language]
+
+    def end_options(self):
+        returns = {'English': {'1': 'PLAY AGAIN', '2': 'MAIN MENU'},
+                    'Portugues': {'1': 'JOGAR NOVAMENTE', '2': 'MENU INICIAL'}}
+
+        return returns[self.language]
+    
+    def end_command(self):
+        returns = {'English': 'GAME IS OVER. WHAT DO YOU WANT?',
+                    'Portugues': 'O JOGO ACABOU. O QUE VOCÊ DESEJA?'}
 
         return returns[self.language]

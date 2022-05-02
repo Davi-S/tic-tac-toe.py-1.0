@@ -11,9 +11,8 @@ def main():
     cpu = CPU()
     board = TicTacToeBoard(ui)
     game = TicTacToeGame(board, ui, cpu)
-    game.main_menu() # Initialize game options
     system("cls")
-    game.play()
+    game.main()
 
         
 if __name__ == '__main__':

@@ -1,9 +1,9 @@
-from time import sleep
-from board import TicTacToeBoard
-from utils import pick_option, number_to_grid, pick_int
-from random import randint
 from ui import UI
 from cpu_ia import CPU
+from board import TicTacToeBoard
+from utils import pick_option, number_to_grid, pick_int
+from time import sleep
+from os import system
 
 class TicTacToeGame():
     def __init__(self, board:type[TicTacToeBoard], user_interface:type[UI], cpu_ia:type[CPU]) -> None:
@@ -16,35 +16,45 @@ class TicTacToeGame():
         
     def main_menu(self):
         while True:
+            system("cls")
             menu_option = pick_option(self.ui.main_menu_options(), self.ui.main_menu_command())
+            system("cls")
             
             if menu_option == 1:
+                system("cls")
                 opponent = self.pick_opponent()
 
                 if opponent == 2:
+                    system("cls")
                     self.pick_difficulty()
 
+                system("cls")
                 pre_game = pick_option(self.ui.pre_game_options(), self.ui.pre_game_command())
                 if pre_game == 1: # new game
                     self.score = {'x': 0, 'o': 0}
+                    system("cls")
                     return
 
                 elif pre_game == 2:
                     if self.board.board is None:
+                        system("cls")
                         print(self.ui.no_game_in_progress_error())
                         continue
+                    system("cls")
                     return
 
                 elif pre_game == 3: 
+                    system("cls")
                     continue
 
             elif menu_option == 2:
+                system("cls")
                 self.select_language()
                 continue 
             
             elif menu_option == 3:
                 print(self.ui.how_to_play())
-                sleep(1)
+                input(self.ui.continue_input())
                 continue
 
             elif menu_option == 4:
@@ -69,6 +79,7 @@ class TicTacToeGame():
             line, column = number_to_grid(pick_int(self.ui.get_user_input_play()))
             if self.board.place_mark(line, column, self.turn):
                 return
+            print(self.ui.empty_space())
 
     def cpu_turn(self):
         while True:
@@ -78,6 +89,7 @@ class TicTacToeGame():
                 break
     
     def win_event(self, win_info:list):
+        system("cls")
         self.board.print_formated_board()
         print(self.ui.win_message(win_info[1], win_info[2]))
         self.score[win_info[1]] += 1
@@ -85,6 +97,7 @@ class TicTacToeGame():
             print(f'{key}: {value}')
 
     def draw_event(self):
+        system("cls")
         self.board.print_formated_board()
         print(self.ui.draw_message())
         for key, value in self.score.items():
@@ -92,6 +105,7 @@ class TicTacToeGame():
 
     def play(self):
         while True:
+            system("cls")
             self.board.print_formated_board()
             print(self.ui.show_turn(self.turn))
 

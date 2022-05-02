@@ -115,3 +115,15 @@ class UI:
                     'Portugues': 'VOCÊ PRECISA TER UM JOGO EM ANDAMENTO PARA CONTINUAR'}
 
         return returns[self.language]
+
+    def empty_space(self):
+        returns = {'English': 'PICK A EMPTY SPACE',
+                    'Portugues': 'ESCOLHA UM LUGAR VAZIO'}
+
+        return returns[self.language]   
+
+    def continue_input(self):
+        returns = {'English': 'PRESS ENTER TO CONTINUE',
+                    'Portugues': 'APERTE ENTER PARA CONTINUAR'}
+
+        return returns[self.language]

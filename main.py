@@ -11,7 +11,6 @@ def main():
     cpu = CPU()
     board = TicTacToeBoard(ui)
     game = TicTacToeGame(board, ui, cpu)
-    system("cls")
     game.main()
 
         

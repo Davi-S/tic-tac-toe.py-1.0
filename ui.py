@@ -26,8 +26,8 @@ class UI:
         return returns[self.language]
 
     def pre_game_options(self):
-        returns = {'English': {'1': 'START', '2': 'RETURN'},
-                    'Portugues': {'1': 'COMEÇAR', '2': 'VOLTAR'}}
+        returns = {'English': {'1': 'START NEW GAME', '2':'CONTINUE', '3': 'RETURN'},
+                    'Portugues': {'1': 'COMEÇAR NOVO JOGO', '2': 'CONTINUAR', '3': 'VOLTAR'}}
                 
         return returns[self.language]
     
@@ -107,5 +107,11 @@ class UI:
     def end_command(self):
         returns = {'English': 'GAME IS OVER. WHAT DO YOU WANT?',
                     'Portugues': 'O JOGO ACABOU. O QUE VOCÊ DESEJA?'}
+
+        return returns[self.language]
+
+    def no_game_in_progress_error(self):
+        returns = {'English': 'YOU MUST HAVE A GAME IN PROGRESS TO CONTINUE',
+                    'Portugues': 'VOCÊ PRECISA TER UM JOGO EM ANDAMENTO PARA CONTINUAR'}
 
         return returns[self.language]

@@ -25,9 +25,17 @@ class TicTacToeGame():
                     self.pick_difficulty()
 
                 pre_game = pick_option(self.ui.pre_game_options(), self.ui.pre_game_command())
-                if pre_game == 1:
-                    return 
-                elif pre_game == 2: 
+                if pre_game == 1: # new game
+                    self.score = {'x': 0, 'o': 0}
+                    return
+
+                elif pre_game == 2:
+                    if self.board.board is None:
+                        print(self.ui.no_game_in_progress_error())
+                        continue
+                    return
+
+                elif pre_game == 3: 
                     continue
 
             elif menu_option == 2:
@@ -69,16 +77,20 @@ class TicTacToeGame():
                 self.change_turn()
                 break
     
-    def win_event(self):
+    def win_event(self, win_info:list):
         self.board.print_formated_board()
-        print(self.ui.win_message(self.board.check_win()[1], self.board.check_win()[2]))
+        print(self.ui.win_message(win_info[1], win_info[2]))
+        self.score[win_info[1]] += 1
+        for key, value in self.score.items():
+            print(f'{key}: {value}')
 
     def draw_event(self):
         self.board.print_formated_board()
         print(self.ui.draw_message())
+        for key, value in self.score.items():
+            print(f'{key}: {value}')
 
     def play(self):
-        self.board.create_board()
         while True:
             self.board.print_formated_board()
             print(self.ui.show_turn(self.turn))
@@ -88,7 +100,7 @@ class TicTacToeGame():
             self.change_turn()
 
             if self.board.check_win()[0]:
-                self.win_event()
+                self.win_event(self.board.check_win())
                 return
             if self.board.is_filled():
                 self.draw_event()
@@ -98,7 +110,7 @@ class TicTacToeGame():
                 self.cpu_turn()
 
             if self.board.check_win()[0]:
-                self.win_event()
+                self.win_event(self.board.check_win())
                 return
             if self.board.is_filled():
                 self.draw_event()
@@ -108,14 +120,14 @@ class TicTacToeGame():
     def main(self):
         while True:
             self.main_menu()
+            self.board.create_board()
             while True:
                 self.play()
                 end = pick_option(self.ui.end_options(), self.ui.end_command())
-                if end == 1:
-                    continue
-
-                else:
+                if end != 1: # not the "play again" choice
                     break
+                self.board.create_board()
+                continue
             
         
     

@@ -93,7 +93,7 @@ class TicTacToeGame():
                 self.change_turn()
                 break
     
-    def win_event(self, win_info:Union(list, tuple)) -> None:
+    def win_event(self, win_info:Union[list, tuple]) -> None:
         """Events after a win
 
         Args:

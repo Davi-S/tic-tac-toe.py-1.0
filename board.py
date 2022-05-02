@@ -69,7 +69,7 @@ class TicTacToeBoard():
 
     # NOTE the following 3 functions (_check_lines, _check_columns, _check_diagonals)
     # are very simillar to the same function on the "CPU" class in the "cpu_ia.py" file
-    def _check_lines(self) -> Union(str, bool):
+    def _check_lines(self) -> Union[str, bool]:
         """check if all values in any line are the same
 
         Returns:

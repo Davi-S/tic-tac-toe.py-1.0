@@ -1,7 +1,7 @@
 from time import sleep
 from typing import Union
 
-def pick_option(options:dict, command:str, return_type=int) -> Union(int, str):
+def pick_option(options:dict, command:str, return_type=int) -> Union[int, str]:
     """return a int representation of a given dict key. can alse return the dict value
 
     Args:

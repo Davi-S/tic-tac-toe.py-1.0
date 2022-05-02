@@ -5,7 +5,7 @@ from ui import UI
 def pick_option(options:dict, command:str, return_type=int) -> int:
     option = None
     while option not in options.keys():
-        print('\n' + command)
+        print(command)
         for key, value in options.items():
             print (f'[{key}] - {value}')
         option = input('->')

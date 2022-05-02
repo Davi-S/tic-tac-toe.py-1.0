@@ -127,3 +127,15 @@ class UI:
                     'Portugues': 'APERTE ENTER PARA CONTINUAR'}
 
         return returns[self.language]
+
+    def main_menu_alert(self):
+        returns = {'English': 'your score will be saved if you retun to the main menu',
+                    'Portugues': 'seu placar será salvo se você voltar para o menu inicial'}
+
+        return returns[self.language]
+
+    def new_game_alert(self):
+        returns = {'English': 'the score will be reset if you start a new game',
+                    'Portugues': 'o placa irá ser reiniciado se você começar um novo jogo'}
+
+        return returns[self.language]

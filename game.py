@@ -29,6 +29,7 @@ class TicTacToeGame():
                     self.pick_difficulty()
 
                 system("cls")
+                print(self.ui.new_game_alert())
                 pre_game = pick_option(self.ui.pre_game_options(), self.ui.pre_game_command())
                 if pre_game == 1: # new game
                     self.score = {'x': 0, 'o': 0}
@@ -137,6 +138,7 @@ class TicTacToeGame():
             self.board.create_board()
             while True:
                 self.play()
+                print('\n' + self.ui.main_menu_alert())
                 end = pick_option(self.ui.end_options(), self.ui.end_command())
                 if end != 1: # not the "play again" choice
                     break

@@ -2,8 +2,9 @@ from typing import Union
 from ui import UI
 from cpu_ia import CPU
 from board import TicTacToeBoard
-from utils import pick_option, number_to_grid, pick_int
+from input import CustomInput
 from os import system
+from time import sleep
 
 class TicTacToeGame():
     def __init__(self, board:type[TicTacToeBoard], user_interface:type[UI], cpu_ia:type[CPU]) -> None:
@@ -17,7 +18,7 @@ class TicTacToeGame():
         """
         while True:
             system("cls")
-            menu_option = pick_option(self.ui.main_menu_options(), self.ui.main_menu_command())
+            menu_option = CustomInput().pick_option(self.ui.main_menu_options(), self.ui.main_menu_command())
             
             if menu_option == 1: # Play option
                 system("cls")
@@ -29,7 +30,7 @@ class TicTacToeGame():
 
                 system("cls")
                 print(self.ui.new_game_alert())
-                pre_game = pick_option(self.ui.pre_game_options(), self.ui.pre_game_command())
+                pre_game = CustomInput().pick_option(self.ui.pre_game_options(), self.ui.pre_game_command())
                 if pre_game == 1:
                     # Start placar for new game
                     self.score = {'x': 0, 'o': 0}
@@ -40,8 +41,8 @@ class TicTacToeGame():
                     if self.board.board is None:
                         system("cls")
                         print(self.ui.no_game_in_progress_error())
+                        sleep(2)
                         continue
-                    system("cls")
                     return
 
                 elif pre_game == 3: # return option
@@ -53,6 +54,7 @@ class TicTacToeGame():
                 continue 
             
             elif menu_option == 3:
+                system("cls")
                 print(self.ui.how_to_play())
                 # Show the rules until any input
                 input(self.ui.continue_input())
@@ -62,15 +64,15 @@ class TicTacToeGame():
                 exit()
 
     def select_language(self) -> None:
-        self.ui.language = pick_option(self.ui.select_language_options(), self.ui.select_game_command(), str)
-
+        user_input:str = CustomInput().pick_option(self.ui.select_language_options(), self.ui.select_game_command(), 'value')
+        self.ui.language = user_input.title()
     def pick_opponent(self) -> int:
-        opponent_option = pick_option(self.ui.select_opponent_options(), self.ui.select_opponent_command())
+        opponent_option = CustomInput().pick_option(self.ui.select_opponent_options(), self.ui.select_opponent_command())
         self.opponent = 'player2' if opponent_option == 1 else 'cpu'
         return opponent_option
 
     def pick_difficulty(self):
-        self.cpu.difficulty = pick_option(self.ui.select_difficulty_options(), self.ui.select_difficulty_command())
+        self.cpu.difficulty = CustomInput().pick_option(self.ui.select_difficulty_options(), self.ui.select_difficulty_command())
 
     def change_turn(self) -> None:
         self.turn = 'x' if self.turn == 'o' else 'o'
@@ -79,7 +81,8 @@ class TicTacToeGame():
         """Play in a valid place on the board with player input
         """
         while True:
-            line, column = number_to_grid(pick_int(self.ui.get_user_input_play()))
+            user_input = CustomInput().pick_in_range(self.ui.get_user_input_play(), 1, self.board.size**2)
+            line, column = CustomInput().number_to_grid(self.board.board, user_input)
             if self.board.place_mark(line, column, self.turn):
                 return
             print(self.ui.empty_space())
@@ -162,7 +165,7 @@ class TicTacToeGame():
             while True:
                 self.play()
                 print('\n' + self.ui.main_menu_alert())
-                end = pick_option(self.ui.end_options(), self.ui.end_command())
+                end = CustomInput().pick_option(self.ui.end_options(), self.ui.end_command())
                 if end != 1: # not the "play again" choice
                     break
                 self.board.create_board()

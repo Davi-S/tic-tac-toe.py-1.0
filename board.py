@@ -4,6 +4,7 @@ class TicTacToeBoard():
     def __init__(self, user_interface:type[UI], defalt_value:str=' ') -> None:
         self.ui = user_interface
         self.defalt_value = defalt_value
+        self.size = None # used to quick access board size for the CustomInput class
         self.board = None
 
     def create_board(self, size:int=3) -> None:
@@ -14,6 +15,7 @@ class TicTacToeBoard():
         """
         gridline = [self.defalt_value for _ in range(size)]
         self.board = [list(gridline) for _ in range(size)]
+        self.size = size
 
     def is_filled(self) -> bool:
         """check if the board if fully filled"""

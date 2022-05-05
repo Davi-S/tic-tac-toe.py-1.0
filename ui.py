@@ -5,7 +5,7 @@ class UI:
         self.language = 'English'
 
     def select_language_options(self):
-        return {'1': 'ENGLISH', '2': 'PORTUGUES'}
+        return {1: 'ENGLISH', 2: 'PORTUGUES'}
 
     def select_game_command(self):
         returns = {'English': 'SELECT LANGUAGE',
@@ -14,8 +14,8 @@ class UI:
         return returns[self.language]
 
     def main_menu_options(self):
-        returns = {'English': {'1': 'PLAY', '2':'SELECT LANGUAGE', '3': 'HOW TO PLAY', '4':'EXIT'},
-                    'Portugues': {'1': 'JOGAR', '2':'SELECIONAR IDIOMA','3': 'COMO JOGAR', '4':'SAIR'}}
+        returns = {'English': {1: 'PLAY', 2:'SELECT LANGUAGE', 3: 'HOW TO PLAY', 4:'EXIT'},
+                    'Portugues': {1: 'JOGAR', 2:'SELECIONAR IDIOMA',3: 'COMO JOGAR', 4:'SAIR'}}
 
         return returns[self.language]
     
@@ -26,20 +26,20 @@ class UI:
         return returns[self.language]
 
     def pre_game_options(self):
-        returns = {'English': {'1': 'START NEW GAME', '2':'CONTINUE', '3': 'RETURN'},
-                    'Portugues': {'1': 'COMEÇAR NOVO JOGO', '2': 'CONTINUAR', '3': 'VOLTAR'}}
+        returns = {'English': {1: 'START NEW GAME', 2:'CONTINUE', 3: 'RETURN'},
+                    'Portugues': {1: 'COMEÇAR NOVO JOGO', 2: 'CONTINUAR', 3: 'VOLTAR'}}
                 
         return returns[self.language]
     
     def pre_game_command(self):
-        returns = {'English': 'GAME',
-                    'Portugues': 'JOGO'}
+        returns = {'English': 'WHAT DO YOU WANT?',
+                    'Portugues': 'O QUE VOCÊ DESEJA?'}
                 
         return returns[self.language]
 
     def select_opponent_options(self):
-        returns = {'English': {'1': 'LOCAL MULTIPLAYER', '2': 'CPU'},
-                    'Portugues': {'1': 'MULTI JOGADOR LOCAL ', '2': 'COMPUTADOR'}}
+        returns = {'English': {1: 'LOCAL MULTIPLAYER', 2: 'CPU'},
+                    'Portugues': {1: 'MULTI JOGADOR LOCAL ', 2: 'COMPUTADOR'}}
 
         return returns[self.language]
     
@@ -50,8 +50,8 @@ class UI:
         return returns[self.language]
 
     def select_difficulty_options(self):
-        returns = {'English': {'1': 'EASY', '2': 'MEDIUM', '3': 'HARD'},
-                    'Portugues': {'1': 'FACIL', '2': 'MEDIO', '3': 'DIFICIL'}}
+        returns = {'English': {1: 'EASY', 2: 'MEDIUM', 3: 'HARD'},
+                    'Portugues': {1: 'FACIL', 2: 'MEDIO', 3: 'DIFICIL'}}
 
         return returns[self.language]
     
@@ -99,8 +99,8 @@ class UI:
         return returns[self.language]
 
     def end_options(self):
-        returns = {'English': {'1': 'PLAY AGAIN', '2': 'MAIN MENU'},
-                    'Portugues': {'1': 'JOGAR NOVAMENTE', '2': 'MENU INICIAL'}}
+        returns = {'English': {1: 'PLAY AGAIN', 2: 'MAIN MENU'},
+                    'Portugues': {1: 'JOGAR NOVAMENTE', 2: 'MENU INICIAL'}}
 
         return returns[self.language]
     

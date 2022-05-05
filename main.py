@@ -2,11 +2,9 @@ from ui import UI
 from cpu_ia import CPU
 from board import TicTacToeBoard
 from game import TicTacToeGame
-from os import system
 
 
 def main():
-    system("cls")
     ui = UI()
     cpu = CPU()
     board = TicTacToeBoard(ui)

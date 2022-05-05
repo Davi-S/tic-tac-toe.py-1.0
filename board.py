@@ -56,7 +56,8 @@ class TicTacToeBoard():
     def print_formated_board(self):
         """Print a nice boad on the screen"""
         for idx, line in enumerate(self.board):
-            print('\n', str(line).replace('[', '').replace(']', '').replace(',', ' |').replace("'", ''))
+            print('\n', str(line).replace('[', '').replace(']', '')\
+                                    .replace(',', ' |').replace("'", ''))
             if idx < len(self.board) -1:
                 for count, _ in enumerate(line, start=1):
                     print('---', end='')

@@ -66,6 +66,7 @@ class TicTacToeGame():
     def select_language(self) -> None:
         user_input:str = CustomInput().pick_option(self.ui.select_language_options(), self.ui.select_game_command(), 'value')
         self.ui.language = user_input.title()
+
     def pick_opponent(self) -> int:
         opponent_option = CustomInput().pick_option(self.ui.select_opponent_options(), self.ui.select_opponent_command())
         self.opponent = 'player2' if opponent_option == 1 else 'cpu'
@@ -120,7 +121,6 @@ class TicTacToeGame():
         # print the score
         for key, value in self.score.items():
             print(f'{key}: {value}')
-
 
     def play(self) -> None:
         """The loop for a game in progress. Ends on a win or draw

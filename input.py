@@ -1,17 +1,17 @@
 import contextlib
-from os import system
 from time import sleep
-from math import ceil
 
 class CustomInput:
     def _print_options(self, options:dict) -> None:
         for key, value in options.items():
             print (f'[{key}] - {value}')
 
+
     def _error_message(self, error_message):
         sleep(0.3)
         print(f'\n{error_message}\n')
         sleep(1)
+
 
     def pick_option(self, options:dict, prompt:str='', return_type:str='key',
                     error_message:str='PICK A VALID OPTION'):
@@ -59,8 +59,6 @@ class CustomInput:
         return option
 
     
-
-
     def number_to_grid(self, grid:list[list], number:int) -> tuple:
         """return a single number as a x a y axis on the board
 

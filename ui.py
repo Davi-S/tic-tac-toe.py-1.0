@@ -73,7 +73,9 @@ class UI:
 
         return returns[self.language]
 
-    def win_message(self, winner:str, position:str):
+    def win_message(self, winner:str, positions:list):
+        # making list nice to print
+        position = str(positions).replace('[', '').replace(']', '').replace("'", '').replace(',', ' and')
         returns = {'English': f'PLAYER {winner} WON THE GAME ON THE {position.upper()}!',
                     'Portugues': f'JOGADO {winner} GANHOU O JOGO NA POSIÇÃO {position.upper()}!'}
 

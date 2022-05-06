@@ -70,9 +70,10 @@ class TicTacToeBoard():
         """check if a set has only one item and it is diferent from the board defalt value"""
         return len(seti) == 1 and seti != {self.defalt_value}
 
+
     # NOTE the following 3 functions (_check_lines, _check_columns, _check_diagonals)
     # are very simillar to the same function on the "CPU" class in the "cpu_ia.py" file
-    def _check_lines(self) -> Union[str, bool]:
+    def _check_lines_winner(self) -> str:
         """check if all values in any line are the same
 
         Returns:
@@ -80,7 +81,7 @@ class TicTacToeBoard():
         """
         return next((line[0] for line in self.board if self._check_set(set(line))), self.defalt_value)
 
-    def _check_columns(self) -> str:
+    def _check_columns_winner(self) -> str:
         """check if all values in any column are the same
 
         Returns:
@@ -92,10 +93,10 @@ class TicTacToeBoard():
                 seti.add(line[count])
             if self._check_set(seti):
                 return line[count]
-                
+            
         return self.defalt_value
 
-    def _check_diagonals(self) -> str:
+    def _check_diagonals_winner(self) -> str:
         """check if all values in any diagonal(2) are the same
 
         Returns:
@@ -111,7 +112,7 @@ class TicTacToeBoard():
 
         return self.defalt_value
 
-    def check_win(self) -> tuple:
+    def win_info(self) -> dict:
         """check if there are wins in the board. None that it only return
         one(1) kind of win follwing the hierarchy (line, column and diagonal); ex.:
         tree signs on x=1 axis and 3 signs on y=1 axis will be count as an line win
@@ -120,16 +121,31 @@ class TicTacToeBoard():
             tuple: [bool, str(winner), str(how the win occoured)]. if bool is False, all other
             values will be None
         """
-        line = self._check_lines()
+        wins = {'player': str, 'line': 0, 'column': 0, 'diagonal': 0}
+
+        line = self._check_lines_winner()
         if line != self.defalt_value:
-            return True, line, self.ui.positions('line')
-        
-        column = self._check_columns()
+            wins['player'] = line
+            wins['line'] += 1
+
+        column = self._check_columns_winner()
         if column != self.defalt_value:
-            return True, column, self.ui.positions('column')
+            wins['player'] = column
+            wins['column'] += 1
 
-        diagonal = self._check_diagonals()
+        diagonal = self._check_diagonals_winner()
         if diagonal != self.defalt_value:
-            return True, diagonal, self.ui.positions('diagonal')
+            wins['player'] = diagonal
+            wins['diagonal'] += 1
 
-        return False, None, None
+        return wins
+
+    def check_win(self) -> True:
+        line = self._check_lines_winner()
+        column = self._check_columns_winner()
+        diagonal = self._check_diagonals_winner()
+        
+        if line != self.defalt_value or \
+            column != self.defalt_value or \
+            diagonal != self.defalt_value:
+            return True

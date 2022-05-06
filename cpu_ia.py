@@ -1,5 +1,4 @@
 from random import randint
-from board import TicTacToeBoard
 from typing import Union
 
 class CPU:
@@ -54,7 +53,7 @@ class CPU:
 
         return False
 
-    
+    # TODO make a impossible mode without random plays 
     def _easy(self) -> tuple:
         """A randon play
         

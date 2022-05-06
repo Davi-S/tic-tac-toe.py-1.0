@@ -1,4 +1,3 @@
-from typing import Union
 from ui import UI
 from cpu_ia import CPU
 from board import TicTacToeBoard
@@ -97,17 +96,19 @@ class TicTacToeGame():
                 self.change_turn()
                 break
     
-    def win_event(self, win_info:Union[list, tuple]) -> None:
+
+    def win_event(self, win_info:dict) -> None:
         """Events after a win
 
         Args:
-            win_info (list or tuple): [bool, str(winner), str(how the win occoured)].
-                                      if bool is false, all the other values must be None
+            win_info (dict): {'player': str, 'line': int, 'column': int, 'diagonal': int}
         """
         system("cls")
         self.board.print_formated_board()
-        print(self.ui.win_message(win_info[1], win_info[2]))
-        self.score[win_info[1]] += 1
+        position = [key for key, value in win_info.items() if value not in [0, 'x', 'o']]
+
+        print(self.ui.win_message(win_info['player'], position))
+        self.score[win_info['player']] += 1
         # print the score
         for key, value in self.score.items():
             print(f'{key}: {value}')
@@ -138,8 +139,8 @@ class TicTacToeGame():
             self.player_turn()
             self.change_turn()
 
-            if self.board.check_win()[0]:
-                self.win_event(self.board.check_win())
+            if self.board.check_win():
+                self.win_event(self.board.win_info())
                 return
             if self.board.is_filled():
                 self.draw_event()
@@ -148,8 +149,8 @@ class TicTacToeGame():
             if self.turn == 'o' and self.opponent == 'cpu':
                 self.cpu_turn()
 
-            if self.board.check_win()[0]:
-                self.win_event(self.board.check_win())
+            if self.board.check_win():
+                self.win_event(self.board.win_info())
                 return
             if self.board.is_filled():
                 self.draw_event()

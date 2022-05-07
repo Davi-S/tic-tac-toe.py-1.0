@@ -1,8 +1,7 @@
 from typing import Union
 from ui import UI
 class TicTacToeBoard():
-    def __init__(self, user_interface:type[UI], defalt_value:str=' ') -> None:
-        self.ui = user_interface
+    def __init__(self, defalt_value:str=' ') -> None:
         self.defalt_value = defalt_value
         self.size = None # used to quick access board size for the CustomInput class
         self.board = None

@@ -7,7 +7,7 @@ from game import TicTacToeGame
 def main():
     ui = UI()
     cpu = CPU()
-    board = TicTacToeBoard(ui)
+    board = TicTacToeBoard()
     game = TicTacToeGame(board, ui, cpu)
     game.main()
 

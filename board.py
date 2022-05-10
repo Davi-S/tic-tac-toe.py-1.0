@@ -1,9 +1,8 @@
-from typing import Union
-from ui import UI
+from itertools import product
 class TicTacToeBoard():
     def __init__(self, defalt_value:str=' ') -> None:
         self.defalt_value = defalt_value
-        self.size = None # used to quick access board size for the CustomInput class
+        self.size = None
         self.board = None
 
     def create_board(self, size:int=3) -> None:
@@ -14,15 +13,11 @@ class TicTacToeBoard():
         """
         gridline = [self.defalt_value for _ in range(size)]
         self.board = [list(gridline) for _ in range(size)]
-        self.size = size
+        self.size = size # fast acess to board size
 
     def is_filled(self) -> bool:
-        """check if the board if fully filled"""
-        for line in self.board:
-            for column in line:
-                if column == self.defalt_value:
-                    return False
-        return True
+        """check if the board if fully filled. means a draw"""
+        return all(self.board[line_idx][column_idx] != self.defalt_value for line_idx, column_idx in product(range(self.size), range(self.size)))
 
     def is_marked(self, line:int, column:int) -> bool:
         """checks if a place on the board if already marked
@@ -51,18 +46,20 @@ class TicTacToeBoard():
         else:
             return False
 
+    def empty_spaces(self) -> int:
+        """number of empty spaces on the board"""
+        return sum(not self.is_marked(line_idx, column_idx) for line_idx, column_idx in product(range(self.size), range(self.size)))
 
     def print_formated_board(self):
         """Print a nice boad on the screen"""
-        for idx, line in enumerate(self.board):
+        for line_idx, line in enumerate(self.board):
             print('\n', str(line).replace('[', '').replace(']', '')\
                                     .replace(',', ' |').replace("'", ''))
-            if idx < len(self.board) -1:
+            if line_idx < len(self.board) -1:
                 for count, _ in enumerate(line, start=1):
                     print('---', end='')
                     if count < len(line):
                         print('|', end='')
-    
 
 
     def _check_set(self, seti:set):
@@ -86,12 +83,12 @@ class TicTacToeBoard():
         Returns:
             str or bool: the mark that repeats or False if none is repeating
         """
-        for count in range(len(self.board)):
+        for column in range(self.size):
             seti = set()
             for line in self.board:
-                seti.add(line[count])
+                seti.add(line[column])
             if self._check_set(seti):
-                return line[count]
+                return line[column]
             
         return self.defalt_value
 
@@ -112,16 +109,14 @@ class TicTacToeBoard():
         return self.defalt_value
 
     def win_info(self) -> dict:
-        """check if there are wins in the board. None that it only return
-        one(1) kind of win follwing the hierarchy (line, column and diagonal); ex.:
-        tree signs on x=1 axis and 3 signs on y=1 axis will be count as an line win
+        """check if there are wins in the board, and in what places it occoured
         
         Returns:
-            tuple: [bool, str(winner), str(how the win occoured)]. if bool is False, all other
-            values will be None
+            dict: {'player': None, 'line': int, 'column': int, 'diagonal': int}
+                if player is None, there is no win. line, column, and diagonal represents the amout of wins in their respective places
         """
-        wins = {'player': str, 'line': 0, 'column': 0, 'diagonal': 0}
-
+        wins = {'player': None, 'line': 0, 'column': 0, 'diagonal': 0}
+        
         line = self._check_lines_winner()
         if line != self.defalt_value:
             wins['player'] = line
@@ -139,7 +134,9 @@ class TicTacToeBoard():
 
         return wins
 
-    def check_win(self) -> True:
+    def check_win(self) -> bool:
+        """checks if there is a win on the board. Note that this only return a bool.
+        if you want more information about the wins, use the win_info() method"""
         line = self._check_lines_winner()
         column = self._check_columns_winner()
         diagonal = self._check_diagonals_winner()

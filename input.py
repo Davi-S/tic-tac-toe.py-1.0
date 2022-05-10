@@ -59,18 +59,18 @@ class CustomInput:
         return option
 
     
-    def number_to_grid(self, grid:list[list], number:int) -> tuple:
+    def number_to_grid(self, board:list[list], number:int) -> tuple:
         """return a single number as a x a y axis on the board
 
         Args:
-            number (int): the number that represents a place on a grid.
-                            The grid values are counted from up to down, left to right
+            number (int): the number that represents a place on a board.
+                            The board values are counted from up to down, left to right
 
         Returns:
             tuple: x and y axis
         """
         count = 0
-        for line_idx, line in enumerate(grid):
+        for line_idx, line in enumerate(board):
             for column_idx, _ in enumerate(line):
                 count +=1
                 if count == number:

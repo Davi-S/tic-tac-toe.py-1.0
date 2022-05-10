@@ -13,7 +13,7 @@ class TicTacToeGame():
         self.opponent = None
         
     def main_menu(self) -> None:
-        """Initiates most game configs. Must always come before self.main()
+        """Initiates game configs.
         """
         while True:
             system("cls")
@@ -23,7 +23,7 @@ class TicTacToeGame():
                 system("cls")
                 opponent = self.pick_opponent()
 
-                if opponent == 2: # If the pponent is the cpu
+                if opponent == 2: # Opponent is the cpu
                     system("cls")
                     self.pick_difficulty()
 
@@ -31,7 +31,7 @@ class TicTacToeGame():
                 print(self.ui.new_game_alert())
                 pre_game = CustomInput().pick_option(self.ui.pre_game_options(), self.ui.pre_game_command())
                 if pre_game == 1:
-                    # Start placar for new game
+                    # Start placar for new game only if the player wants a new game
                     self.score = {'x': 0, 'o': 0}
                     system("cls")
                     return
@@ -47,19 +47,19 @@ class TicTacToeGame():
                 elif pre_game == 3: # return option
                     continue
 
-            elif menu_option == 2:
+            elif menu_option == 2: # select language
                 system("cls")
                 self.select_language()
                 continue 
             
-            elif menu_option == 3:
+            elif menu_option == 3: # show rules
                 system("cls")
                 print(self.ui.how_to_play())
                 # Show the rules until any input
                 input(self.ui.continue_input())
                 continue
 
-            elif menu_option == 4:
+            elif menu_option == 4: # exit game
                 exit()
 
     def select_language(self) -> None:
@@ -91,7 +91,7 @@ class TicTacToeGame():
         """Play in a valid place on the board with cpu choice
         """
         while True:
-            line, column = self.cpu.play(self.board.board, self.board.defalt_value)
+            line, column = self.cpu.play(self.board)
             if self.board.place_mark(line, column, self.turn):
                 self.change_turn()
                 break

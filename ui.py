@@ -50,8 +50,8 @@ class UI:
         return returns[self.language]
 
     def select_difficulty_options(self):
-        returns = {'English': {1: 'EASY', 2: 'MEDIUM', 3: 'HARD'},
-                    'Portugues': {1: 'FACIL', 2: 'MEDIO', 3: 'DIFICIL'}}
+        returns = {'English': {1: 'EASY', 2: 'MEDIUM', 3: 'HARD', 4: 'IMPOSIBLE'},
+                    'Portugues': {1: 'FACIL', 2: 'MEDIO', 3: 'DIFICIL',4: 'IMPOSSÍVEL'}}
 
         return returns[self.language]
     

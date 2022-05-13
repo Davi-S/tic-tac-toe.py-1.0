@@ -4,10 +4,10 @@ class UI:
     def __init__(self) -> None:
         self.language = 'English'
 
-    def select_language_options(self):
+    def language_options(self):
         return {1: 'ENGLISH', 2: 'PORTUGUES'}
 
-    def select_game_command(self):
+    def language_command(self):
         returns = {'English': 'SELECT LANGUAGE',
                     'Portugues': 'SELECIONAR IDIOMA'}
         
@@ -37,47 +37,47 @@ class UI:
                 
         return returns[self.language]
 
-    def select_opponent_options(self):
+    def opponent_options(self):
         returns = {'English': {1: 'LOCAL MULTIPLAYER', 2: 'CPU'},
                     'Portugues': {1: 'MULTI JOGADOR LOCAL ', 2: 'COMPUTADOR'}}
 
         return returns[self.language]
     
-    def select_opponent_command(self):
+    def opponent_command(self):
         returns = {'English': 'PICK YOUR OPPONENT',
                     'Portugues': 'SELECIONE SEU OPONENTE'}
 
         return returns[self.language]
 
-    def select_difficulty_options(self):
+    def difficulty_options(self):
         returns = {'English': {1: 'EASY', 2: 'MEDIUM', 3: 'HARD', 4: 'IMPOSIBLE'},
                     'Portugues': {1: 'FACIL', 2: 'MEDIO', 3: 'DIFICIL',4: 'IMPOSSÍVEL'}}
 
         return returns[self.language]
     
-    def select_difficulty_command(self):
+    def difficulty_command(self):
         returns = {'English': 'PICK YOUR DIFFICULTY',
                     'Portugues': 'SELECIONE SUA DIFICULDADE'}
 
         return returns[self.language]
 
-    def show_turn(self, turn):
-        returns = {'English': f'player {turn} turn!',
-                    'Portugues': f'Vez do jogador {turn}'}
+    def show_turn(self, player:str, symbol:str):
+        returns = {'English': f"It's {player.upper()}'s turn! Choose to place the {symbol}",
+                    'Portugues': f'É a vez do(a) {player.upper()}! Escolha onde marcar o {symbol}'}
 
         return returns[self.language]
 
     def get_user_input_play(self):
-        returns = {'English': 'PLACE MARK ON:\n',
+        returns = {'English': 'PLACE SYMBOL ON:\n',
                     'Portugues': 'COLOCAR MARCA NO:\n'}
 
         return returns[self.language]
 
-    def win_message(self, winner:str, positions:list):
+    def win_message(self, winner:dict, positions:list):
         # making list nice to print
         position = str(positions).replace('[', '').replace(']', '').replace("'", '').replace(',', ' and')
-        returns = {'English': f'PLAYER {winner} WON THE GAME ON THE {position.upper()}!',
-                    'Portugues': f'JOGADO {winner} GANHOU O JOGO NA POSIÇÃO {position.upper()}!'}
+        returns = {'English': f'{winner["player"].upper()} WON THE GAME ON THE {position.upper()} AS THE {winner["symbol"]}!',
+                    'Portugues': f'{winner["player"].upper()} GANHOU O JOGO NA(S) POSIÇÃO(ÕES) {position.upper()} COMO O {winner["symbol"]}!'}
 
         return returns[self.language]
 
@@ -118,7 +118,7 @@ class UI:
 
         return returns[self.language]
 
-    def empty_space(self):
+    def not_empty_space_error(self):
         returns = {'English': 'PICK A EMPTY SPACE',
                     'Portugues': 'ESCOLHA UM LUGAR VAZIO'}
 
@@ -137,7 +137,7 @@ class UI:
         return returns[self.language]
 
     def new_game_alert(self):
-        returns = {'English': 'the score will be reset if you start a new game',
-                    'Portugues': 'o placa irá ser reiniciado se você começar um novo jogo'}
+        returns = {'English': 'The score will be reset if you start a new game',
+                    'Portugues': 'O placa irá ser reiniciado se você começar um novo jogo'}
 
         return returns[self.language]

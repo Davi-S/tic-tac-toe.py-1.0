@@ -124,7 +124,7 @@ class CPUhard():
         if diagonals := cpu._check_diagonals('win'):
             return diagonals
 
-        return CPUmedium().play()
+        return CPUmedium().play(cpu)
 
 
 class CPUimpossible(): # TODO understand why it works

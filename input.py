@@ -1,5 +1,20 @@
 import contextlib
+import itertools
 from time import sleep
+
+def number_to_grid(x_axis:int, y_axis:int, number:int) -> tuple:
+    """return the x and y axis on a grid with given number. The grid is counted from 
+    left to right, up to down and starts at 1.
+
+    Args:
+        number (int): the number that represents a place on a board.
+
+    Returns:
+        tuple: x and y axis
+    """
+    for count, (line, column) in enumerate(itertools.product(range(x_axis), range(y_axis)), start=1):
+        if count == number:
+            return line, column
 
 class CustomInput:
     def _print_options(self, options:dict) -> None:
@@ -10,7 +25,7 @@ class CustomInput:
     def _error_message(self, error_message):
         sleep(0.3)
         print(f'\n{error_message}\n')
-        sleep(1)
+        sleep(0.7)
 
 
     def pick_option(self, options:dict, prompt:str='', return_type:str='key',
@@ -57,21 +72,3 @@ class CustomInput:
             except ValueError:
                 self._error_message(error_message)
         return option
-
-    
-    def number_to_grid(self, board:list[list], number:int) -> tuple:
-        """return a single number as a x a y axis on the board
-
-        Args:
-            number (int): the number that represents a place on a board.
-                            The board values are counted from up to down, left to right
-
-        Returns:
-            tuple: x and y axis
-        """
-        count = 0
-        for line_idx, line in enumerate(board):
-            for column_idx, _ in enumerate(line):
-                count +=1
-                if count == number:
-                    return line_idx, column_idx

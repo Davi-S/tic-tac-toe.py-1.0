@@ -6,15 +6,17 @@ from os import system
 from time import sleep
 
 class TicTacToeGame():
-    def __init__(self, board:type[TicTacToeBoard], user_interface:type[UI], cpu_ia:type[CPU]) -> None:
+    def __init__(self, board:type[TicTacToeBoard], user_interface:type[UI], cpu:type[CPU]) -> None:
         self.board = board
         self.ui = user_interface
-        self.cpu = cpu_ia
+        self.cpu = cpu
         self.ci = CustomInput()
-        self.player1 = {'player': 'player_1',     'symbol': 'x'}
+        self.player1 = {'player': 'player_1', 'symbol': 'x'}
         self.player2 = {'player': 'undefined', 'symbol': 'o'}
         self.score = None
-
+        
+        self.cpu.board = board
+        
     def main_menu(self) -> None:
         """Initiates game configs."""
         while True:
@@ -71,14 +73,23 @@ class TicTacToeGame():
                 exit()
 
     def set_players(self, opponent:int) -> int:
+        """set players info"""
+        # set players name
         self.player1['player'] = 'player_1' if opponent == 1 else 'you'
         self.player2['player'] = 'player_2' if opponent == 1 else 'cpu'
+
+        # set players symbols on cpu instance
+        self.cpu.cpu_symbol = self.player2['symbol']
+        self.cpu.player1_symbol = self.player1['symbol']
+        
         
 
     def set_language(self, language:str) -> None:
+        """set user interface language"""
         self.ui.language = language.title()
 
     def set_difficulty(self, difficulty):
+        """set CPU IA difficulty"""
         self.cpu.difficulty = difficulty
 
     
@@ -114,7 +125,7 @@ class TicTacToeGame():
     def cpu_turn(self, turn) -> None:
         """Play in a valid place on the board with cpu choice"""
         while True:
-            line, column = self.cpu.play(self.board)
+            line, column = self.cpu.play()
             if self.board.place_mark(line, column, turn['symbol']):
                 return
 
@@ -160,8 +171,7 @@ class TicTacToeGame():
             print(f'{key}: {value}')
 
     def draw_event(self) -> None:
-        """Events after a draw
-        """
+        """Events after a draw"""
         system("cls")
         self.board.print_formated_board()
         print(self.ui.draw_message())

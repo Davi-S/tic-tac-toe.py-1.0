@@ -1,9 +1,11 @@
 from itertools import product
+from typing import Union
+
 class TicTacToeBoard():
     def __init__(self, defalt_value:str=' ') -> None:
-        self.defalt_value = defalt_value
-        self.size = None
-        self.board = None
+        self.defalt_value:str = defalt_value
+        self.size:int = None
+        self.board:list[list] = None
 
     def create_board(self, size:int=3) -> None:
         """Assign a new empty board to board instance variable
@@ -62,22 +64,52 @@ class TicTacToeBoard():
                         print('|', end='')
 
 
+    def win_info(self) -> dict:
+        """check if there are wins in the board, and in what places it occoured
+        
+        Returns:
+            dict: player that won and in witch positions has he won.
+        """
+        wins = {'player': None, 'line': 0, 'column': 0, 'diagonal': 0}
+
+        if line := self._check_lines_winner():
+            wins['player'] = line
+            wins['line'] += 1
+
+        if column := self._check_columns_winner():
+            wins['player'] = column
+            wins['column'] += 1
+
+        if diagonal := self._check_diagonals_winner():
+            wins['player'] = diagonal
+            wins['diagonal'] += 1
+
+        return wins
+
+    def check_win(self) -> bool:
+        """checks if there is a win on the board."""
+        return bool(self._check_lines_winner() \
+            or self._check_columns_winner() \
+            or self._check_diagonals_winner())
+
+
     def _check_set(self, seti:set):
         """check if a set has only one item and it is diferent from the board defalt value"""
+        # set has only one value and it is not the defalt
         return len(seti) == 1 and seti != {self.defalt_value}
 
 
     # NOTE the following 3 functions (_check_lines, _check_columns, _check_diagonals)
     # are very simillar to the same function on the "CPU" class in the "cpu_ia.py" file
-    def _check_lines_winner(self) -> str:
+    def _check_lines_winner(self) -> Union[str, bool]:
         """check if all values in any line are the same
 
         Returns:
-            str or bool: the mark that repeats or False if none is repeating
+            str or bool: the mark that repeats, or False if none is repeating
         """
-        return next((line[0] for line in self.board if self._check_set(set(line))), self.defalt_value)
+        return next((line[0] for line in self.board if self._check_set(set(line))), False)
 
-    def _check_columns_winner(self) -> str:
+    def _check_columns_winner(self) -> Union[str, bool]:
         """check if all values in any column are the same
 
         Returns:
@@ -90,9 +122,9 @@ class TicTacToeBoard():
             if self._check_set(seti):
                 return line[column]
             
-        return self.defalt_value
+        return False
 
-    def _check_diagonals_winner(self) -> str:
+    def _check_diagonals_winner(self) -> Union[str, bool]:
         """check if all values in any diagonal(2) are the same
 
         Returns:
@@ -106,42 +138,4 @@ class TicTacToeBoard():
         if self._check_set(seti):
             return self.board[0][len(self.board)-1]
 
-        return self.defalt_value
-
-    def win_info(self) -> dict:
-        """check if there are wins in the board, and in what places it occoured
-        
-        Returns:
-            dict: {'player': None, 'line': int, 'column': int, 'diagonal': int}
-                if player is None, there is no win. line, column, and diagonal represents the amout of wins in their respective places
-        """
-        wins = {'player': None, 'line': 0, 'column': 0, 'diagonal': 0}
-        
-        line = self._check_lines_winner()
-        if line != self.defalt_value:
-            wins['player'] = line
-            wins['line'] += 1
-
-        column = self._check_columns_winner()
-        if column != self.defalt_value:
-            wins['player'] = column
-            wins['column'] += 1
-
-        diagonal = self._check_diagonals_winner()
-        if diagonal != self.defalt_value:
-            wins['player'] = diagonal
-            wins['diagonal'] += 1
-
-        return wins
-
-    def check_win(self) -> bool:
-        """checks if there is a win on the board. Note that this only return a bool.
-        if you want more information about the wins, use the win_info() method"""
-        line = self._check_lines_winner()
-        column = self._check_columns_winner()
-        diagonal = self._check_diagonals_winner()
-        
-        if line != self.defalt_value or \
-            column != self.defalt_value or \
-            diagonal != self.defalt_value:
-            return True
+        return False

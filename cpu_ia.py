@@ -177,7 +177,7 @@ class CPU:
                 simulated_score['position'] = line, column
 
                 if actual_player == self.cpu_symbol and simulated_score['score'] > best['score'] \
-                    or actual_player != self.cpu_symbol and simulated_score['score'] < best['score']:
+                        or actual_player != self.cpu_symbol and simulated_score['score'] < best['score']:
                     best = simulated_score
         return best
 

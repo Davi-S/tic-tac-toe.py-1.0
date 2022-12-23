@@ -26,7 +26,7 @@ This version of Tic Tac Toe includes the following features:
 
 To play, simply run the `main.py` file.
 
-python main.py
+`python main.py`
 
 
 ## Support

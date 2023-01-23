@@ -133,9 +133,6 @@ class TicTacToeBoard():
         seti = {self.board[idx][idx] for idx, _ in enumerate(self.board)}
         if self._check_set(seti):
             return self.board[0][0]
-        
-        seti = {self.board[idx][len(self.board) - idx - 1] for idx, _ in enumerate(self.board)}
-        if self._check_set(seti):
-            return self.board[0][len(self.board)-1]
 
-        return False
+        seti = {self.board[idx][len(self.board) - idx - 1] for idx, _ in enumerate(self.board)}
+        return self.board[0][len(self.board)-1] if self._check_set(seti) else False

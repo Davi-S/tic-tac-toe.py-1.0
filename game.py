@@ -14,7 +14,7 @@ class TicTacToeGame():
         self.player1 = {'player': 'player_1', 'symbol': 'x'}
         self.player2 = {'player': 'undefined', 'symbol': 'o'}
         self.score = None
-        
+
         self.cpu.board = board
         
     def main_menu(self) -> None:
@@ -62,7 +62,7 @@ class TicTacToeGame():
                 language_option = self.ci.pick_option(self.ui.language_options(), self.ui.language_command(), 'value')
                 self.set_language(language_option)
                 continue 
-            
+
             elif menu_option == 3: # show rules option
                 system("cls")
                 print(self.ui.how_to_play())
